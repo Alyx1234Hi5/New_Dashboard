@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-hrmPO4HCmSpvwyuLWHX5z5xXkz8TjJU5pXcFpFQwqfOeG8Bl/5+PtcO87NNb5O4" crossorigin="anonymous">
+    <link href='https://unpkg.com/@fullcalendar/core@5.10.1/main.min.css' rel='stylesheet' />
+    <link rel="stylesheet" href="dashboard.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"/>
+
+  <!--link for graph-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="progress"></div>
+    <div class="wrapper">
+        <aside id ="sidebar">
+        <div class="top">
+            <div class="logo">
+                <img src="/system/images/laundry_logo.png" alt="Laundry logo">
+                <span>Azia Skye</span>
+            </div>
+            <i class='bx bx-menu' id="btnMenu"></i>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="laundry_system/dashboard/dashboard.php" class="sidebar-link">
+                    <i class="bx bxs-grid-alt"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+
+            <li>
+                <a href="laundry_system/my_profile/profile.html" class="sidebar-link">
+                    <i class='bx bxs-user'></i>
+                    <span class="nav-item">Profile</span>
+                </a>
+                <span class="tooltip">Profile</span>
+            </li>
+
+            <li>
+                <a href="/system/users/users.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="nav-item">Users</span>
+                </a>
+                <span class="tooltip">Users</span>
+            </li>
+
+            
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#records" aria-expanded="false" aria-controls="records">
+                    <i class='bx bxs-folder-open'></i>
+                    <span class="nav-item">Records</span>
+                </a>
+
+                <ul id="records" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Customer</a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Service</a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link">Category</a>
+                    </li>
+                </ul>
+                <span class="tooltip">Records</span>
+            </li>
+            
+
+            <li>
+                <a href="/system/transaction/transaction.html">
+                    <i class='bx bx-transfer-alt'></i>
+                    <span class="nav-item">Transaction</span>
+                </a>
+                <span class="tooltip">Transaction</span>
+            </li>
+
+            <li>
+                <a href="/system/sales report/report.html">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="nav-item">Report</span>
+                </a>
+                <span class="tooltip">Report</span>
+            </li>
+
+            <li>
+                <a href="/system/settings/settings.html">
+                    <i class='bx bxs-cog'></i>
+                    <span class="nav-item">Settings</span>
+                </a>
+                <span class="tooltip">Settings</span>
+            </li>
+
+            <!--<?php if ($_SESSION['user_role'] == 'admin'): ?> -->
+            <li>
+                <a href="/system/archive/archive.html">
+                    <i class='bx bxs-archive-in'></i>
+                    <span class="nav-item">Archived</span>
+                </a>
+                <span class="tooltip">Archived</span>
+            </li>
+            <!-- <?php endif; ?> -->
+
+            <li>
+                <a href="logout.php">
+                    <i class='bx bx-log-out'></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+        </aside>
+    </div>
+
+    <div class="main-content">
+        <div class="cards-container">
+            <h1>Dashboard</h1>
+            <div class="cards">
+                <div class="card">
+                    <h3>Pick-up request</h3>
+                    <p id="pickup-orders">0</p>
+                    <!--<div class="progress">
+                        <svg>
+                            <circle cx='38' cy='38' r='36'></circle>
+                        </svg>
+                        <div class="number">
+                            <p>56%</p>
+                        </div> -->
+                </div>
+                <div class="card">
+                    <h3>Delivery request</h3>
+                    <p id="delivery-orders"></p>
+                </div>
+             
+
+        </div>
+
+       
+            
+        <div class="container">
+            <!--CALENDAR-->
+            <div class="main-calendar"> <!--calendar//left-side-->
+                <div class="calendar-header">
+                    <button id="prevYear">&lt;</button>
+                    <span id="year">2024</span>
+                    <button id="nextYear">&gt;</button>
+                </div>
+                <!--bagong dagdag yung months 6/22/24 21:41-->
+                <div id="months"></div>
+                <div id="calendar"></div>
+             
+              <!--try for btn days lex-->
+              <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+              </div>
+                  <!--try for btn days lex-->
+                
+           
+                </div>
+
+
+          
+        
+
+
+
+
+
+<!--end-->
+            <div clas="right-side">
+                <h2>Service Events</h2>
+                <ul id="services">
+
+                </ul>
+            </div>
+        </div>
+
+
+    <!--<div class="calendar">
+        <div id="calendar"></div>
+    </div> -->
+
+
+    <!--caleenadr new-->
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+
+<!--try ko lang sana gunamana manifestingstop nas --->
+   
+
+
+</html>
